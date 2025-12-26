@@ -100,12 +100,12 @@
       </div>
     </div>
 
-    <!-- RIGHT AVATAR (this is your missing pic) -->
+    <!-- RIGHT AVATAR (hard-wired image) -->
     <div class="order-1 md:order-2 px-4">
       <div class="relative w-full aspect-square max-w-[320px] md:max-w-md mx-auto">
         <div class="absolute inset-0 bg-black/80 translate-x-4 translate-y-4 border-4 border-black z-0"></div>
         <img
-          src="1000016887.jpg"  <!-- file in SAME folder as index.html -->
+          src="https://picsgt.simdif.com/images/public/sd_694db3da5ac3b.png?no_cache=1766703598"
           alt="Abigil Sanchez-Padilla - Gaming Affiliate"
           class="relative w-full h-full object-cover border-8 border-black z-10 grayscale contrast-125 hover:grayscale-0 transition-all duration-300">
       </div>
@@ -224,9 +224,7 @@
       const html="<!DOCTYPE html>
 "+document.documentElement.outerHTML;
       zip.file("index.html",html);
-      zip.file("README.md","# ASP.GG Media Kit
-
-Neo-brutalist gaming affiliate media kit.");
+      zip.file("README.md","# ASP.GG Media Kit\n\nNeo-brutalist gaming affiliate media kit.");
       zip.generateAsync({type:"blob"}).then(blob=>{
         saveAs(blob,"asp-gg-media-kit.zip");
         alert("Export ready for GitHub Pages / Base44.");
