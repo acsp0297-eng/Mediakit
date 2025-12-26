@@ -1,236 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Abigil Sanchez-Padilla | Interactive Media Kit</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<!-- Material Icon Safety Checker -->
+<script>
+(function(){'use strict';
+var l=["material-icons","material-symbols-outlined","material-symbols-rounded","material-symbols-sharp"]
+.map(c=>"."+c).join(",");
+var cache=null;
+function load(){return cache?Promise.resolve(cache):
+fetch("https://www.gstatic.com/bard-maui/resources/material-design-icon-names.804824289.json")
+.then(r=>r.json()).then(j=>cache=j).catch(()=>[]);}
+function check(el){
+  const t=el.textContent.trim();
+  if(!t) return;
+  load().then(list=>{
+    if(list.length && !list.includes(t)){
+      el.textContent="radio_button_unchecked";
+    }
+  });
+}
+document.fonts.ready.then(()=>{
+  document.querySelectorAll(l).forEach(check);
+  new MutationObserver(m=>{
+    m.forEach(e=>{
+      e.addedNodes.forEach(n=>{
+        if(n.nodeType===1){
+          if(n.matches?.(l)) check(n);
+          n.querySelectorAll?.(l).forEach(check);
+        }
+      });
+    });
+  }).observe(document.body,{childList:true,subtree:true});
+});
+})();
+</script>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Archivo+Black&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Abigil Sanchez-Padilla | Interactive Media Kit</title>
 
-  <!-- Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- JSZip + FileSaver (export) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo+Black&display=swap" rel="stylesheet">
 
-  <style>
-    .neo-box{position:relative;transition:all 0.3s ease;}
-    .neo-box:hover{transform:translate(4px,4px);box-shadow:8px 8px 0 #000;}
-    .neo-btn{position:relative;border:4px solid #000;background:#fff;font-weight:900;
-      text-transform:uppercase;letter-spacing:0.1em;transition:all 0.2s;cursor:pointer;}
-    .neo-btn:hover{background:#000;color:#fff;}
-    .neo-btn:active{transform:translateY(4px);box-shadow:none;border-width:0;}
-    .marquee-container{overflow:hidden;white-space:nowrap;background:#000;color:#fff;font-weight:900;}
-    .marquee-content{display:inline-block;animation:marquee 25s linear infinite;}
-    @keyframes marquee{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
-    .brand-font{font-family:'Archivo Black',sans-serif;}
-    .bg-pattern{background-image:radial-gradient(#333 1px,transparent 1px);background-size:16px 16px;}
-    .export-btn{background:#000;color:#fff;border:3px solid #fff;padding:8px 16px;font-weight:900;
-      text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
-    .export-btn:hover{background:#fff;color:#000;border-color:#000;}
-  </style>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+
+<!-- Export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+<style>
+body{font-family:'Space Mono',monospace}
+.brand-font{font-family:'Archivo Black',sans-serif}
+.bg-pattern{background-image:radial-gradient(#333 1px,transparent 1px);background-size:16px 16px}
+.neo-box{position:relative;transition:.25s}
+.neo-box:hover{transform:translate(4px,4px);box-shadow:8px 8px 0 #000}
+.neo-btn{border:4px solid #000;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.neo-btn:hover{background:#000;color:#fff}
+
+/* 🔒 AVATAR — PERMANENT */
+.avatar-lock{
+  aspect-ratio:1/1;
+  width:100%;
+  background-image:url("https://picsgt.simdif.com/images/public/sd_694db3da5ac3b.png?no_cache=1766703598");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  filter:grayscale(100%) contrast(125%);
+  transition:filter .3s ease;
+}
+.avatar-lock:hover{filter:grayscale(0%)}
+</style>
 </head>
 
-<body class="bg-pattern min-h-screen flex flex-col pb-8 font-mono">
+<body class="bg-pattern min-h-screen font-mono">
 
-  <!-- NAVBAR -->
-  <nav class="sticky top-0 z-50 bg-white border-b-4 border-black p-3 shadow-sm">
-    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3">
-      <div class="text-xl font-black brand-font tracking-tighter flex items-center gap-1">
-        <span class="bg-black text-white px-2 py-1 transform -rotate-2 shadow-[2px_2px_0_#000]">ASP</span>
-        <span class="text-pink-600 hidden md:block">.GG</span>
-      </div>
-
-      <div class="flex gap-2 items-center">
-        <button class="export-btn text-xs md:text-sm shadow-[4px_4px_0_#000] hover:shadow-[8px_8px_0_#000] active:translate-y-1 active:shadow-none"
-                onclick="exportProject()">
-          <span class="material-symbols-outlined mr-1">download</span>EXPORT
-        </button>
-        <button class="neo-btn px-4 py-2 text-xs md:text-sm shadow-[2px_2px_0_#000]"
-                onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-          HIRE ME
-        </button>
-      </div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-white border-b-4 border-black p-3">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <div class="brand-font text-xl font-black">
+      <span class="bg-black text-white px-2 py-1 -rotate-2 inline-block">ASP</span>
+      <span class="text-pink-600 hidden md:inline">.GG</span>
     </div>
-  </nav>
-
-  <!-- MARQUEE -->
-  <div class="marquee-container py-2">
-    <div class="marquee-content brand-font text-sm md:text-lg px-4 tracking-widest">
-      GAMING AFFILIATE • TWITCH PARTNER • CASINO MARKETER • LAMESA TEXAS • 40% REV SHARE • LATAM EXPERT • AI AUTOMATION • DEPOSIT FUNNELS • GEMINI CASINO • GAMING AFFILIATE • TWITCH PARTNER •
+    <div class="flex gap-3">
+      <button onclick="exportProject()" class="neo-btn px-4 py-2 text-sm shadow-[4px_4px_0_#000]">
+        <span class="material-symbols-outlined">download</span>
+      </button>
+      <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"
+        class="neo-btn px-4 py-2 text-sm shadow-[2px_2px_0_#000]">HIRE ME</button>
     </div>
   </div>
+</nav>
 
-  <!-- HERO -->
-  <header class="max-w-7xl mx-auto w-full p-4 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-4">
-    <!-- LEFT -->
-    <div class="order-2 md:order-1 flex flex-col gap-4">
-      <div class="neo-box p-6 bg-white border-4 border-black shadow-[4px_4px_0_#000]">
-        <div class="absolute -top-3 right-4 bg-blue-400 border-4 border-black px-3 py-1 font-black text-xs uppercase tracking-widest transform rotate-2 shadow-[2px_2px_0_#000]">
-          OPEN FOR Q4 2025
-        </div>
-        <h1 class="text-5xl md:text-7xl leading-[0.9] mb-4 font-black">
-          ABIGIL <br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600 drop-shadow-[4px_4px_0_rgba(0,0,0,1)] tracking-tighter">
-            SANCHEZ-PADILLA
-          </span>
-        </h1>
-        <p class="text-lg md:text-xl font-bold mb-8 border-l-4 border-yellow-400 pl-6 leading-tight bg-yellow-100 p-3">
-          Digital Marketing & Affiliate Specialist • Lamesa, TX<br>
-          <span class="bg-yellow-300 px-3 py-1 font-black text-sm uppercase tracking-widest shadow-[2px_2px_0_#000]">
-            40% GEMINI CASINO REV SHARE • LATAM TRAFFIC EXPERT
-          </span>
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="mailto:asmorath@gmail.com"
-             class="neo-btn py-4 px-8 text-lg flex justify-center items-center gap-3 shadow-[4px_4px_0_#000] bg-white hover:bg-black hover:text-white">
-            <span class="material-symbols-outlined text-2xl">mail</span>
-            EMAIL ME
-          </a>
-          <div class="border-4 border-black px-6 py-4 bg-gray-100 font-black uppercase tracking-widest flex justify-center items-center gap-3 text-base shadow-[4px_4px_0_#666]">
-            <span class="material-symbols-outlined text-red-600 text-2xl">pin_drop</span>
-            LAMESA, TX
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- HERO -->
+<header class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 p-8 items-center">
 
-    <!-- RIGHT AVATAR (hard-wired image) -->
-    <div class="order-1 md:order-2 px-4">
-      <div class="relative w-full aspect-square max-w-[320px] md:max-w-md mx-auto">
-        <div class="absolute inset-0 bg-black/80 translate-x-4 translate-y-4 border-4 border-black z-0"></div>
-        <img
-          src="https://picsgt.simdif.com/images/public/sd_694db3da5ac3b.png?no_cache=1766703598"
-          alt="Abigil Sanchez-Padilla - Gaming Affiliate"
-          class="relative w-full h-full object-cover border-8 border-black z-10 grayscale contrast-125 hover:grayscale-0 transition-all duration-300">
-      </div>
-    </div>
-  </header>
+<!-- TEXT -->
+<div class="neo-box bg-white border-4 border-black p-6">
+  <div class="absolute -top-4 right-4 bg-blue-400 border-4 border-black px-3 py-1 font-black text-xs rotate-2">
+    OPEN FOR Q4 2025
+  </div>
+  <h1 class="text-6xl font-black leading-tight">
+    ABIGIL<br>
+    <span class="text-pink-600">SANCHEZ-PADILLA</span>
+  </h1>
+  <p class="mt-6 bg-yellow-200 p-3 border-l-4 border-black font-bold">
+    Gaming Affiliate • 40% Gemini Casino Rev Share • LATAM Expert
+  </p>
+</div>
 
-  <!-- METRICS -->
-  <section id="stats" class="max-w-7xl mx-auto w-full p-4 md:p-8 mb-12">
-    <h2 class="text-3xl md:text-5xl mb-8 bg-black text-white inline-block px-6 py-3 transform -skew-x-6 border-b-4 border-yellow-400 font-black tracking-widest shadow-[4px_4px_0_#000]">
-      THE METRICS
-    </h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-      <div class="neo-box p-6 md:p-8 bg-blue-300 flex flex-col justify-between items-start h-36 md:h-48 border-4 border-black shadow-[4px_4px_0_#000] hover:bg-blue-400">
-        <span class="text-4xl md:text-6xl font-black text-black leading-none">1,247</span>
-        <div>
-          <span class="block text-lg md:text-xl font-black uppercase tracking-widest text-black">TWITCH FOLLOWERS</span>
-          <span class="material-symbols-outlined text-blue-600 text-xl">diversity_3</span>
-        </div>
-      </div>
-      <div class="neo-box p-6 md:p-8 bg-yellow-300 flex flex-col justify-between items-start h-36 md:h-48 border-4 border-black shadow-[4px_4px_0_#000] transform rotate-1 hover:bg-yellow-400">
-        <span class="text-4xl md:text-6xl font-black text-black leading-none">$78K</span>
-        <div>
-          <span class="block text-lg md:text-xl font-black uppercase tracking-widest text-black">2025 REV SHARE</span>
-          <span class="material-symbols-outlined text-yellow-600 text-xl">account_balance_wallet</span>
-        </div>
-      </div>
-      <div class="neo-box p-6 md:p-8 bg-green-300 flex flex-col justify-between items-start h-36 md:h-48 border-4 border-black shadow-[4px_4px_0_#000] transform -rotate-1 hover:bg-green-400">
-        <span class="text-4xl md:text-6xl font-black text-black leading-none">42%</span>
-        <div>
-          <span class="block text-lg md:text-xl font-black uppercase tracking-widest text-black">AVG CONVERSION</span>
-          <span class="material-symbols-outlined text-green-600 text-xl">trending_up</span>
-        </div>
-      </div>
-      <div class="neo-box p-6 md:p-8 bg-pink-300 flex flex-col justify-between items-start h-36 md:h-48 border-4 border-black shadow-[4px_4px_0_#000] hover:bg-pink-400">
-        <span class="text-4xl md:text-6xl font-black text-black leading-none">2.3K</span>
-        <div>
-          <span class="block text-lg md:text-xl font-black uppercase tracking-widest text-black">TOTAL DEPOSITS</span>
-          <span class="material-symbols-outlined text-pink-600 text-xl">payments</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- 🔒 AVATAR -->
+<div class="px-6">
+  <div class="relative max-w-md mx-auto">
+    <div class="absolute inset-0 bg-black translate-x-4 translate-y-4 border-4 border-black"></div>
+    <div class="avatar-lock border-8 border-black relative z-10"></div>
+  </div>
+</div>
 
-  <!-- CORE COMPETENCIES -->
-  <section class="max-w-4xl mx-auto w-full p-4 md:p-8 mb-12">
-    <h2 class="text-4xl md:text-6xl mb-12 bg-black text-white inline-block px-8 py-4 transform -skew-x-6 border-t-4 border-b-4 border-yellow-400 font-black tracking-widest shadow-[8px_8px_0_#000]">
-      CORE COMPETENCIES
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="neo-box p-8 bg-white border-4 border-black text-center font-black shadow-[4px_4px_0_#666] hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 hover:text-white">
-        <span class="material-symbols-outlined text-5xl mb-4 block text-pink-600">casino</span>
-        <div class="text-2xl uppercase tracking-widest mb-2">GEMINI CASINO</div>
-        <div class="text-4xl font-black">40% REV SHARE</div>
-      </div>
-      <div class="neo-box p-8 bg-white border-4 border-black text-center font-black shadow-[4px_4px_0_#666] transform rotate-2 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white">
-        <span class="material-symbols-outlined text-5xl mb-4 block text-blue-600">live_tv</span>
-        <div class="text-2xl uppercase tracking-widest mb-2">TWITCH PARTNER</div>
-        <div class="text-4xl font-black">LATAM TRAFFIC</div>
-      </div>
-      <div class="neo-box p-8 bg-white border-4 border-black text-center font-black shadow-[4px_4px_0_#666] hover:bg-gradient-to-r hover:from-green-500 hover:to-blue-500 hover:text-white">
-        <span class="material-symbols-outlined text-5xl mb-4 block text-green-600">rocket_launch</span>
-        <div class="text-2xl uppercase tracking-widest mb-2">DEPOSIT FUNNELS</div>
-        <div class="text-4xl font-black">HIGH ROI</div>
-      </div>
-      <div class="neo-box p-8 bg-white border-4 border-black text-center font-black shadow-[4px_4px_0_#666] transform -rotate-2 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white">
-        <span class="material-symbols-outlined text-5xl mb-4 block text-purple-600">smart_toy</span>
-        <div class="text-2xl uppercase tracking-widest mb-2">AI AUTOMATION</div>
-        <div class="text-4xl font-black">CONTENT SCALE</div>
-      </div>
-    </div>
-  </section>
+</header>
 
-  <!-- CTA -->
-  <section id="contact" class="max-w-4xl mx-auto w-full p-6 md:p-12 mb-16">
-    <div class="neo-box p-12 md:p-20 bg-gradient-to-r from-pink-600 via-purple-600 to-pink-500 text-white text-center border-8 border-black shadow-[8px_8px_0_#000]">
-      <h2 class="text-5xl md:text-7xl font-black mb-6 uppercase tracking-widest transform -skew-x-6 drop-shadow-[4px_4px_0_#000]">
-        PARTNERSHIP READY
-      </h2>
-      <p class="text-2xl md:text-3xl mb-12 opacity-90 font-bold leading-tight">
-        Gaming Affiliate • 40% Revenue Share Specialist • LATAM Expert • Lamesa, Texas
-      </p>
-      <div class="flex flex-col lg:flex-row gap-6 justify-center items-center">
-        <a href="mailto:asmorath@gmail.com?subject=Partnership%20Inquiry:%20ASP.GG"
-           class="neo-btn px-12 py-6 text-2xl bg-black border-4 border-white hover:bg-white hover:text-black font-black shadow-[8px_8px_0_#000] active:translate-y-2 active:shadow-none w-full lg:w-auto flex items-center justify-center gap-3 h-20">
-          <span class="material-symbols-outlined text-3xl">email</span>
-          START PARTNERSHIP
-        </a>
-        <a href="https://twitch.tv/asmorath" target="_blank" rel="noopener"
-           class="neo-btn px-12 py-6 text-2xl bg-gradient-to-r from-purple-600 to-pink-600 border-4 border-white hover:border-black font-black shadow-[8px_8px_0_#fff] hover:shadow-[8px_8px_0_#000] active:translate-y-2 active:shadow-none w-full lg:w-auto flex items-center justify-center gap-3 h-20">
-          <span class="material-symbols-outlined text-3xl">live_tv</span>
-          LIVE ON TWITCH
-        </a>
-      </div>
-    </div>
-  </section>
+<!-- CTA -->
+<section id="contact" class="max-w-4xl mx-auto p-12">
+  <div class="neo-box bg-gradient-to-r from-pink-600 to-purple-600 text-white text-center border-8 border-black p-16">
+    <h2 class="text-6xl font-black mb-6">PARTNERSHIP READY</h2>
+    <a href="mailto:asmorath@gmail.com"
+      class="neo-btn inline-flex items-center gap-3 px-10 py-5 bg-black border-4 border-white text-2xl">
+      <span class="material-symbols-outlined">email</span> START PARTNERSHIP
+    </a>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="max-w-7xl mx-auto w-full p-8 md:p-12 border-t-8 border-black bg-black text-white">
-    <div class="text-center">
-      <div class="text-3xl font-black brand-font mb-4 uppercase tracking-widest flex flex-wrap justify-center items-center gap-4">
-        <span>ASP.GG</span>
-        <span class="material-symbols-outlined text-4xl text-yellow-400">rocket</span>
-        <span>GAMING AFFILIATE • LAMESA, TX</span>
-      </div>
-      <p class="text-lg mb-2 font-bold">asmorath@gmail.com</p>
-      <p class="text-sm opacity-75 font-mono">
-        © 2025 ABIGIL SANCHEZ-PADILLA • BUILT WITH NEO-BRUTALISM • 40% GEMINI CASINO REVENUE SHARE
-      </p>
-    </div>
-  </footer>
+<!-- FOOTER -->
+<footer class="bg-black text-white text-center p-8 border-t-8 border-black">
+  <div class="brand-font text-2xl">ASP.GG</div>
+  <p class="opacity-75">© 2025 Abigil Sanchez-Padilla</p>
+</footer>
 
-  <!-- EXPORT (ZIP) -->
-  <script>
-    function exportProject(){
-      const zip=new JSZip();
-      const html="<!DOCTYPE html>
-"+document.documentElement.outerHTML;
-      zip.file("index.html",html);
-      zip.file("README.md","# ASP.GG Media Kit\n\nNeo-brutalist gaming affiliate media kit.");
-      zip.generateAsync({type:"blob"}).then(blob=>{
-        saveAs(blob,"asp-gg-media-kit.zip");
-        alert("Export ready for GitHub Pages / Base44.");
-      });
-    }
-  </script>
+<!-- EXPORT -->
+<script>
+function exportProject(){
+  const zip=new JSZip();
+  zip.file("index.html",document.documentElement.outerHTML);
+  zip.file("README.md","ASP.GG Media Kit — Neo-Brutalist Gaming Affiliate");
+  zip.generateAsync({type:"blob"}).then(b=>{
+    saveAs(b,"asp-gg-media-kit.zip");
+    alert("Export complete. GitHub Pages ready.");
+  });
+}
+</script>
 
 </body>
 </html>
